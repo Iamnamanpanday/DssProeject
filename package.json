@@ -1,0 +1,7 @@
+{
+  "name": "mental-health-ai-root",
+  "private": true,
+  "workspaces": [
+    "frontend"
+  ]
+}

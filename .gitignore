@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+dist/
+build/
+.next/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Python
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.mypy_cache/
+.pytest_cache/
+.installed.cfg
+*.egg-info/
+manifest
+spec
+.vscode/
+
+# System
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
+*.tmp
+*.temp
+package-lock.json
+
+# AI Models
+backend/model/mental_health_model.joblib
+backend/model/scaler.joblib
