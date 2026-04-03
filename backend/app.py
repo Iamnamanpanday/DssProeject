@@ -20,7 +20,7 @@ from pathlib import Path
 # Import configuration and services
 from config import (
     DEBUG, FLASK_ENV, SECRET_KEY, CORS_ORIGINS,
-    MODEL_PATH, FEATURE_RANGES, RECOMMENDATIONS,
+    MODEL_DIR, FEATURE_RANGES, RECOMMENDATIONS,
     LOG_LEVEL, LOG_FORMAT, API_TITLE, API_DESCRIPTION
 )
 from api.routes import api_bp
@@ -68,9 +68,9 @@ def create_app():
         app.feature_preprocessor = feature_preprocessor
         logger.info("Feature preprocessor initialized")
         
-        # Initialize prediction service
+        # Initialize prediction service (multi-model)
         prediction_service = PredictionService(
-            model_path=str(MODEL_PATH),
+            model_dir=str(MODEL_DIR),
             recommendations=RECOMMENDATIONS
         )
         app.prediction_service = prediction_service

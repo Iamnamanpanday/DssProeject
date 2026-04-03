@@ -5,8 +5,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import { MoodInputModule } from './mood-input-module';
 import { AIResultCard } from './ai-result-card';
+import { ModelComparisonChart } from './model-comparison-chart';
 import { MentalHealthScore, AnalysisResult } from '@/lib/dashboard-utils';
-import { Download, Brain, Sparkles } from 'lucide-react';
+import { Download, Brain, Sparkles, BarChart2 } from 'lucide-react';
 import { getCurrentUser } from '@/lib/auth';
 
 
@@ -25,7 +26,7 @@ export function CenterPanel({
   isAnalyzing,
   onAnalyze,
 }: CenterPanelProps) {
-  const [activeTab, setActiveTab] = useState<'inputs' | 'logic'>('inputs');
+  const [activeTab, setActiveTab] = useState<'inputs' | 'models'>('inputs');
 
   const handleExport = () => {
     if (!result) return;
@@ -91,10 +92,11 @@ DISCLAIMER: This is an AI-generated report for informational purposes only.
                 Neural Input
               </button>
               <button 
-                onClick={() => setActiveTab('logic')}
-                className={`px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'logic' ? 'bg-primary text-primary-foreground shadow-lg shadow-primary/20' : 'bg-white/5 text-muted-foreground hover:bg-white/10'}`}
+                onClick={() => setActiveTab('models')}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'models' ? 'bg-secondary text-secondary-foreground shadow-lg shadow-secondary/20' : 'bg-white/5 text-muted-foreground hover:bg-white/10'}`}
               >
-                System Logic
+                <BarChart2 className="w-3 h-3" />
+                Algorithm Study
               </button>
            </div>
            
@@ -157,41 +159,12 @@ DISCLAIMER: This is an AI-generated report for informational purposes only.
           </motion.div>
         ) : (
           <motion.div
-            key="logic"
+            key="models"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            className="space-y-8"
           >
-             <div className="p-8 rounded-3xl bg-white/5 border border-white/10 space-y-6">
-                <h3 className="text-xl font-black text-foreground uppercase tracking-widest">Neural Weights</h3>
-                <p className="text-xs text-muted-foreground leading-relaxed">The system prioritizes <b>Sleep Consistency</b> and <b>Stress Management</b> as the highest-weight features for calculating the Relapse Probability Index.</p>
-                <div className="space-y-4">
-                   {[
-                     { label: 'Circadian Alignment', weight: 'High', color: 'bg-primary' },
-                     { label: 'Cortisol Response Simulation', weight: 'Critical', color: 'bg-rose-500' },
-                     { label: 'Cognitive Load Analysis', weight: 'Medium', color: 'bg-secondary' },
-                   ].map((item) => (
-                     <div key={item.label} className="flex items-center justify-between p-4 rounded-xl bg-black/40 border border-white/5">
-                        <span className="text-xs font-bold text-foreground/80">{item.label}</span>
-                        <span className={`text-[10px] font-black uppercase px-2 py-1 rounded ${item.color}/10 text-${item.color.split('-')[1] || 'primary'}`}>{item.weight}</span>
-                     </div>
-                   ))}
-                </div>
-             </div>
-             
-             <div className="p-8 rounded-3xl bg-secondary/5 border border-secondary/10 space-y-6">
-                <h3 className="text-xl font-black text-foreground uppercase tracking-widest">Decision Logic</h3>
-                <div className="p-6 bg-black/20 rounded-2xl border border-white/5 font-mono text-[10px] text-primary/60 leading-relaxed overflow-x-auto">
-                   <pre>{`IF stress_level > 70 AND sleep < 6:
-   SET mood_index = -0.4
-   TRIGGER relapse_warning()
-
-IF hydration > 8 AND activity > 5:
-   SET stability_multiplier = 1.25
-   RESOLVE state = 'STABLE'`}</pre>
-                </div>
-                <p className="text-[10px] text-muted-foreground font-medium italic">Our DSS uses a hybrid of Rule-Based logic and RandomForest Regression to simulate clinical outcomes with 88%+ accuracy.</p>
-             </div>
+            <ModelComparisonChart />
           </motion.div>
         )}
       </AnimatePresence>

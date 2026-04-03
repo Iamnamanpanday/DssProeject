@@ -11,12 +11,23 @@ import { ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadius
 
 import { AuthGuard } from '@/components/auth-guard';
 import { getCurrentUser } from '@/lib/auth';
+import { saveMoodEntry } from '@/lib/user-data';
 
 import { ChatPanel } from '@/components/chat-panel';
 
 export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [scores, setScores] = useState<MentalHealthScore>({
+    sleep: 7,
+    stress: 45,
+    activity: 5,
+    mood: 7,
+    hydration: 6,
+    screenTime: 4,
+    focus: 7,
+  });
+
+  const [submittedScores, setSubmittedScores] = useState<MentalHealthScore>({
     sleep: 7,
     stress: 45,
     activity: 5,
@@ -45,7 +56,15 @@ export default function Home() {
     try {
       const analysisResult = await predictMentalHealth(scores);
       setResult(analysisResult);
+      setSubmittedScores(scores);
       setBackendOnline(true);
+      
+      // Persist to history for Deep Insights
+      saveMoodEntry({
+        ...scores,
+        date: new Date().toISOString(),
+        riskLevel: analysisResult.riskLevel
+      });
     } catch (err) {
       console.error('Backend prediction failed:', err);
       setBackendOnline(false);
@@ -53,6 +72,15 @@ export default function Home() {
       // Graceful fallback to local calculation
       const fallbackResult = calculateRiskLevel(scores);
       setResult(fallbackResult);
+      setSubmittedScores(scores);
+      
+      // Persist fallback to history
+      saveMoodEntry({
+        ...scores,
+        date: new Date().toISOString(),
+        riskLevel: fallbackResult.riskLevel
+      });
+
       setError(
         'Could not reach the AI backend — showing a local estimate. ' +
           'Make sure the Flask server is running on port 5000.'
@@ -145,10 +173,10 @@ export default function Home() {
         </AnimatePresence>
 
 
-        {/* Main Dashboard */}
         <DashboardLayout
           scores={scores}
           onScoresChange={setScores}
+          submittedScores={submittedScores}
           result={result}
           isAnalyzing={isAnalyzing}
           onAnalyze={handleAnalyze}

@@ -23,9 +23,18 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'dev-secret-key-change-in-production')
 # CORS configuration
 CORS_ORIGINS = ['*']
 
-# Model paths
-MODEL_PATH = BASE_DIR / 'model' / 'depression_model.pkl'
-DATA_PATH = BASE_DIR / 'data' / 'synthetic_data.csv'
+# Model directory (all model artifacts live here)
+MODEL_DIR  = BASE_DIR / 'model'
+DATA_DIR   = BASE_DIR / 'data'
+
+# Individual model artifact paths
+MODEL_PATH           = MODEL_DIR / 'depression_model.pkl'
+REGRESSION_PATH      = MODEL_DIR / 'wellness_regression_model.pkl'
+RELAPSE_PATH         = MODEL_DIR / 'relapse_model.pkl'
+SCALER_PATH          = MODEL_DIR / 'scaler.pkl'
+LABEL_ENCODER_PATH   = MODEL_DIR / 'label_encoder.pkl'
+DATA_PATH            = DATA_DIR  / 'synthetic_data.csv'
+COMPARISON_CSV_PATH  = DATA_DIR  / 'model_comparison.csv'
 
 # API configuration
 API_VERSION = '1.0.0'

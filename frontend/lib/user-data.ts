@@ -10,6 +10,9 @@ export interface UserProfile {
     stress: number;
     activity: number;
     mood: number;
+    hydration: number;
+    screenTime: number;
+    focus: number;
   };
 }
 
@@ -19,6 +22,9 @@ export interface MoodEntry {
   stress: number;
   activity: number;
   mood: number;
+  hydration: number;
+  screenTime: number;
+  focus: number;
   note?: string;
   riskLevel?: string;
 }
@@ -44,6 +50,12 @@ export const saveMoodEntry = (entry: MoodEntry) => {
   const history = getMoodHistory();
   history.push(entry);
   localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+};
+
+export const deleteMoodEntry = (date: string) => {
+  const history = getMoodHistory();
+  const updatedHistory = history.filter(entry => entry.date !== date);
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(updatedHistory));
 };
 
 export const getMoodHistory = (): MoodEntry[] => {

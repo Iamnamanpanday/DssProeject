@@ -8,6 +8,7 @@ import { MentalHealthScore, AnalysisResult } from '@/lib/dashboard-utils';
 interface DashboardLayoutProps {
   scores: MentalHealthScore;
   onScoresChange: (scores: MentalHealthScore) => void;
+  submittedScores: MentalHealthScore;
   result: AnalysisResult | null;
   isAnalyzing: boolean;
   onAnalyze: () => void;
@@ -16,6 +17,7 @@ interface DashboardLayoutProps {
 export function DashboardLayout({
   scores,
   onScoresChange,
+  submittedScores,
   result,
   isAnalyzing,
   onAnalyze,
@@ -35,7 +37,7 @@ export function DashboardLayout({
       />
 
       {/* Right Panel */}
-      <RightPanel scores={scores} />
+      <RightPanel scores={submittedScores} />
     </div>
   );
 }

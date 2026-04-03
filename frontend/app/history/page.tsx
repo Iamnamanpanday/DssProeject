@@ -5,17 +5,27 @@ import { motion } from 'framer-motion';
 import { LeftSidebar } from '@/components/left-sidebar';
 import { ParticleBackground } from '@/components/particle-background';
 import { AuthGuard } from '@/components/auth-guard';
-import { getMoodHistory, MoodEntry } from '@/lib/user-data';
+import { getMoodHistory, MoodEntry, deleteMoodEntry } from '@/lib/user-data';
 import { Calendar, Clock, BookOpen, Trash2, PlusCircle, Filter } from 'lucide-react';
 import { getMoodColor } from '@/lib/dashboard-utils';
+import { useRouter } from 'next/navigation';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
 
 export default function HistoryPage() {
   const [history, setHistory] = useState<MoodEntry[]>([]);
+  const [filterRisk, setFilterRisk] = useState<string>('all');
+  const router = useRouter();
 
   useEffect(() => {
     setHistory(getMoodHistory());
   }, []);
+
+  const handleDelete = (date: string) => {
+    if (confirm('Are you sure you want to delete this entry?')) {
+      deleteMoodEntry(date);
+      setHistory(getMoodHistory());
+    }
+  };
 
   return (
     <AuthGuard>
@@ -38,10 +48,21 @@ export default function HistoryPage() {
                 <p className="text-muted-foreground italic">"Tracking is the first step toward transformation."</p>
               </div>
               <div className="flex gap-4">
-                <button className="flex items-center gap-2 px-4 py-2 border border-border rounded-lg text-sm hover:bg-muted/50 transition-all">
-                  <Filter className="w-4 h-4" /> Filter by Date
-                </button>
-                <button className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-bold hover:brightness-110 transition-all">
+                <div className="flex bg-muted/20 border border-border rounded-lg p-1">
+                  {['all', 'mild', 'moderate', 'severe'].map(risk => (
+                    <button
+                      key={risk}
+                      onClick={() => setFilterRisk(risk)}
+                      className={`px-3 py-1 rounded-md text-[10px] font-black uppercase transition-all ${filterRisk === risk ? 'bg-primary text-primary-foreground shadow-sm' : 'hover:bg-muted/50 text-muted-foreground'}`}
+                    >
+                      {risk}
+                    </button>
+                  ))}
+                </div>
+                <button 
+                  onClick={() => router.push('/')}
+                  className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-bold hover:brightness-110 transition-all"
+                >
                   <PlusCircle className="w-4 h-4" /> Add Entry
                 </button>
               </div>
@@ -100,7 +121,11 @@ export default function HistoryPage() {
                     <BookOpen className="w-5 h-5 text-secondary" /> Journal Entries
                   </h3>
                   {history.length > 0 ? (
-                    history.slice().reverse().map((entry, i) => (
+                    history
+                      .filter(e => filterRisk === 'all' || (e.riskLevel || 'mild') === filterRisk)
+                      .slice()
+                      .reverse()
+                      .map((entry, i) => (
                       <motion.div 
                         key={i}
                         initial={{ opacity: 0, x: -20 }}
@@ -125,7 +150,10 @@ export default function HistoryPage() {
                                </span>
                                <span className="text-xs text-muted-foreground">{new Date(entry.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                              </div>
-                             <button className="text-muted-foreground hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all">
+                             <button 
+                               onClick={() => handleDelete(entry.date)}
+                               className="text-muted-foreground hover:text-red-400 opacity-0 group-hover:opacity-100 transition-all"
+                             >
                                <Trash2 className="w-4 h-4" />
                              </button>
                           </div>
