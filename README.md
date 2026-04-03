@@ -1,72 +1,93 @@
-# NeuroSentinel: Mental Health Decision Support System (DSS)
+<p align="center">
+  <img src="docs/images/hero.png" alt="NeuroSentinel Hero" width="800">
+</p>
 
-A professional-grade, AI-powered Mental Health Monitoring Dashboard and Decision Support System (DSS). NeuroSentinel synchronizes human biological markers in real-time to provide longitudinal risk analysis, wellness forecasting, and automated clinical interventions.
+# 🧠 NeuroSentinel: AI-Driven Mental Health Decision Support System 
 
-![NeuroSentinel Dashboard](https://raw.githubusercontent.com/Iamnamanpanday/DssProeject/main/frontend/public/placeholder.jpg)
+<p align="center">
+  <img src="https://img.shields.io/badge/Next.js-15-black?logo=next.js" alt="Next.js">
+  <img src="https://img.shields.io/badge/Python-3.10+-blue?logo=python" alt="Python">
+  <img src="https://img.shields.io/badge/Scikit--Learn-1.3-orange?logo=scikit-learn" alt="Scikit-Learn">
+  <img src="https://img.shields.io/badge/Framer--Motion-11-purple?logo=framer" alt="Framer Motion">
+  <img src="https://img.shields.io/badge/Tailwind--CSS-v4-38B2AC?logo=tailwind-css" alt="Tailwind CSS">
+</p>
 
----
-
-## 🚀 Advanced DSS Features
-
-### 1. Multi-Model Architecture
-NeuroSentinel operates on a complex AI backbone consisting of three specialized research-grade models:
-- **Primary Risk Classifier (Random Forest)**: Categorizes current state into **Mild**, **Moderate**, or **Severe** risk using a tuned 200-tree ensemble.
-- **Wellness Severity Regressor (Ridge)**: Predicts a granular **Wellness Score (0-100)** to track subtle improvements or declines.
-- **Relapse / Churn Predictor (Logistic Regression)**: Analyzes the "Delta" (change) between observations to forecast the probability of a risk-level worsening.
-
-### 2. Deep Insights Analytics
-A professional telemetry dashboard organized into logical work-tabs:
-- **Overview Tab**: Unified health cards, baseline Radar comparisons, and historical risk distribution.
-- **Trend Modeling Tab**: Longitudinal tracking of Mood vs. Stress correlations (Line Charts) to identify triggers.
-- **Predictive DSS Tab**: Continuous Wellness Index area charts and an **AI Trajectory Engine** forecasting future risk windows with confidence intervals.
-
-### 3. Explainability (SHAP)
-Integrated **SHAP (SHapley Additive exPlanations)** values reveal the "Why" behind every AI decision, visualizing exactly which features (like Sleep deficit or screen-time spikes) are driving the current risk analysis.
+**NeuroSentinel** is a research-grade, enterprise-ready **Decision Support System (DSS)**. It leverages advanced machine learning to analyze human biological markers in real-time, providing deep insights into mental health stability and wellness trajectories.
 
 ---
 
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 15 (App Router), TypeScript, Tailwind CSS v4, Framer Motion, Recharts.
-- **Backend**: Python 3.10+, Flask REST API, Scikit-learn, SHAP, Pandas, Joblib.
-- **Dev Tools**: Docker support, PowerShell automated scripts.
+## ✨ The Vision: AI-Assisted Clinical Wellness
+Mental health management often lacks granular, data-driven markers. NeuroSentinel bridges this gap by synchronizing 7-vector biological telemetry into a unified stability score, allowing for:
+- 🚀 **Early Intervention**: Predicting risk spikes *before* they manifest as clinical crises.
+- 📉 **Longitudinal Tracking**: Visualizing the "mood-stress" correlation over 14-day windows.
+- 💡 **Actionable Prescriptions**: Automatically suggesting lifestyle shifts (e.g., "Enforce 7.5h sleep") based on wellness volatility.
 
 ---
 
-## 🏁 Quick Start
+## 🛠️ Advanced "Multi-Brain" AI Core
+NeuroSentinel doesn't just "guess." It uses a specialized trio of models to provide a holistic view of user health:
 
-### 1. Prerequisites
-- **Python 3.10+** (in `backend/`)
-- **Node.js 18+** (in `frontend/`)
+### 🧩 1. The Risk Classifier (Random Forest)
+- **Algorithm**: Tuned ensemble with 200 trees via `GridSearchCV`.
+- **Function**: Categorizes state into *Mild, Moderate,* or *Severe* with confidence probabilities.
 
-### 2. Automated Launch
-Run the automated startup script from the root directory:
+### 📈 2. The Wellness Regressor (Ridge)
+- **Algorithm**: Ridge Regression for continuous severity indexing.
+- **Function**: Assigns a granular weight to wellness stability (0-100%).
+
+### 📉 3. The Relapse Engine (Logistic Regression)
+- **Algorithm**: Logistic Regression on longitudinal delta features.
+- **Function**: Calculates the % probability of risk-level worsening within the next 48 hours.
+
+---
+
+## 📊 Visualizing the Architecture
+```mermaid
+graph TD
+    A[Human Biological Inputs] --> B[Feature Engineering Engine]
+    B --> C{The Multi-Model Core}
+    C --> D[Random Forest - Risk Level]
+    C --> E[Ridge Regression - Wellness %]
+    C --> F[Logistic Regression - Relapse Probability]
+    D --> G[Unified DSS Dashboard]
+    E --> G
+    F --> G
+    G --> H[SHAP Explainability Insights]
+    H --> I[Actionable Clinical Recommendations]
+```
+
+---
+
+## 🎨 Professional Analytics & UX
+Organized into three professional work-tabs, our dashboard is designed for high-stakes decision-making:
+
+- **🏠 Overview Tab**: Real-time health cards, baseline Radar comparisons, and historical distributions.
+- **📈 Trend Tab**: Detailed mood-vs-stress line charts to uncover hidden lifestyle correlations.
+- **⚡ Predictive DSS Tab**: The "Trajectory Engine" – forecasting future wellness states with AI confidence.
+
+---
+
+## 🏁 Automated Ignition
+NeutroSentinel is designed for seamless deployment. Run the automated startup script from the root directory:
+
 ```powershell
 .\start_system.ps1
 ```
-This script initializes the Python virtual environment, installs dependencies for both layers, and launches the Backend (Port 5000) and Frontend (Port 3000) concurrently.
-
-### 3. Research Mode (Re-train AI)
-To regenerate the synthetic data and re-train the analytical models, run:
-```bash
-python backend/model/train_model.py
-```
+*This launches the Python REST API (Flask) and the Next.js frontend concurrently with unified dependency resolution.*
 
 ---
 
-## 📂 Project Structure
-
+## 📂 Project Intelligence Root
 - `/frontend`: Next.js dashboard application with professional DSS telemetry.
 - `/backend`: Flask AI server, ML pipeline, and SHAP explainability service.
-- `algorithm_mapping.md`: Technical documentation of applied ML strategies.
-- `train_model_explanation.md`: Comprehensive breakdown of the training pipeline logic.
+- **[algorithm_mapping.md](algorithm_mapping.md)**: Deep technical map of applied ML strategies.
+- **[train_model_explanation.md](train_model_explanation.md)**: Breakdown of the 1,500-sample training logic.
 
 ---
 
-## ⚖️ Ethical Considerations & License
-
+## ⚖️ Clinical Disclaimer & License
 > [!IMPORTANT]
-> NeuroSentinel is designed as a **decision support tool**, not a diagnostic system.
-> Predictions should **not replace professional medical evaluation**. The system is intended to assist early detection and encourage individuals to seek professional support when needed.
+> NeuroSentinel is a **Decision Support System (DSS)** and is NOT intended as a standalone diagnostic tool. 
+> All AI-generated results should be reviewed by a qualified mental health professional.
 
 This project is licensed under the MIT License.
