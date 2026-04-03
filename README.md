@@ -11,7 +11,7 @@ A professional-grade, AI-powered Mental Health Monitoring Dashboard and Decision
 ### 1. Multi-Model Architecture
 NeuroSentinel operates on a complex AI backbone consisting of three specialized research-grade models:
 - **Primary Risk Classifier (Random Forest)**: Categorizes current state into **Mild**, **Moderate**, or **Severe** risk using a tuned 200-tree ensemble.
-- **Wellness severity Regressor (Ridge)**: Predicts a granular **Wellness Score (0-100)** to track subtle improvements or declines.
+- **Wellness Severity Regressor (Ridge)**: Predicts a granular **Wellness Score (0-100)** to track subtle improvements or declines.
 - **Relapse / Churn Predictor (Logistic Regression)**: Analyzes the "Delta" (change) between observations to forecast the probability of a risk-level worsening.
 
 ### 2. Deep Insights Analytics
@@ -63,5 +63,10 @@ python backend/model/train_model.py
 
 ---
 
-## ⚖️ License
+## ⚖️ Ethical Considerations & License
+
+> [!IMPORTANT]
+> NeuroSentinel is designed as a **decision support tool**, not a diagnostic system.
+> Predictions should **not replace professional medical evaluation**. The system is intended to assist early detection and encourage individuals to seek professional support when needed.
+
 This project is licensed under the MIT License.
